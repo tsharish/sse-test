@@ -5,7 +5,7 @@ from fastapi.responses import StreamingResponse
 
 app = FastAPI()
 
-headers = {"Cache-Control": "no-store"}
+headers = {"Cache-Control": "no-store", "X-Content-Type-Options": "nosniff"}
 
 
 def generator():
