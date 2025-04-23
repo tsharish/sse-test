@@ -5,6 +5,8 @@ from fastapi.responses import StreamingResponse
 
 app = FastAPI()
 
+headers = {"Cache-Control": "no-store"}
+
 
 def generator():
     i = 1
@@ -30,9 +32,9 @@ async def main():
 
 @app.get("/notsse")
 async def notsse():
-    return StreamingResponse(generator(), media_type="application/json")
+    return StreamingResponse(generator(), media_type="application/json", headers=headers)
 
 
 @app.get("/sse")
 async def sse():
-    return StreamingResponse(sse_generator(), media_type="text/event-stream")
+    return StreamingResponse(sse_generator(), media_type="text/event-stream", headers=headers)
