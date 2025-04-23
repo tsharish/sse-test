@@ -1,7 +1,7 @@
 import time
 import json
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
+from fastapi.responses import StreamingResponse, Response
 
 app = FastAPI()
 
@@ -42,3 +42,19 @@ async def notsse():
 @app.get("/sse")
 async def sse():
     return StreamingResponse(sse_generator(), media_type="text/event-stream", headers=headers)
+
+
+@app.get("/plain")
+async def plain():
+    return Response(
+        generator(),
+        headers={
+            {
+                "Cache-Control": "no-cache",
+                "Connection": "keep-alive",
+                "Content-Type": "text/plain",
+                "X-Content-Type-Options": "nosniff",
+                "X-Accel-Buffering": "no",
+            }
+        },
+    )
