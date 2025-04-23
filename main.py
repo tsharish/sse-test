@@ -8,7 +8,7 @@ app = FastAPI()
 headers = {
     "Cache-Control": "no-store",
     "X-Content-Type-Options": "nosniff",
-    "X-Accel-Buffering": "no",
+    "Transfer-Encoding": "chunked",
 }
 
 
