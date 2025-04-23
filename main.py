@@ -46,15 +46,13 @@ async def sse():
 
 @app.get("/plain")
 async def plain():
-    return Response(
+    return StreamingResponse(
         generator(),
+        media_type="text/plain",
         headers={
-            {
-                "Cache-Control": "no-cache",
-                "Connection": "keep-alive",
-                "Content-Type": "text/plain",
-                "X-Content-Type-Options": "nosniff",
-                "X-Accel-Buffering": "no",
-            }
+            "Cache-Control": "no-cache",
+            "Connection": "keep-alive",
+            "X-Content-Type-Options": "nosniff",
+            "X-Accel-Buffering": "no",
         },
     )
