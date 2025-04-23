@@ -6,7 +6,7 @@ from fastapi.responses import StreamingResponse
 app = FastAPI()
 
 headers = {
-    "Cache-Control": "no-store",
+    "Cache-Control": "no-cache",
     "X-Content-Type-Options": "nosniff",
     "Transfer-Encoding": "chunked",
 }
