@@ -1,14 +1,16 @@
 import time
 import json
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse, Response
+from fastapi.responses import StreamingResponse
 
 app = FastAPI()
 
 headers = {
     "X-Accel-Buffering": "no",
-    "Cache-Control": "no-store, no-cache",
+    "Cache-Control": "no-store",
     "X-Content-Type-Options": "nosniff",
+    "Transfer-Encoding": "chunked",
+    "Connection": "keep-alive",
 }
 
 
