@@ -1,7 +1,7 @@
 import time
 import json
 from fastapi import FastAPI
-from fastapi.responses import StreamingResponse
+from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
@@ -73,3 +73,8 @@ async def plain():
             "X-Accel-Buffering": "no",
         },
     )
+
+
+@app.get("/web")
+async def read_index():
+    return FileResponse("index.html")
