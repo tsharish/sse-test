@@ -6,15 +6,9 @@ from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI()
 
-origins = [
-    "https://sse-test-05cr.onrender.com/",
-    "http://localhost",
-    "http://localhost:8080",
-]
-
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -63,16 +57,7 @@ async def sse():
 
 @app.get("/plain")
 async def plain():
-    return StreamingResponse(
-        generator(),
-        media_type="text/plain",
-        headers={
-            "Cache-Control": "no-cache",
-            "Connection": "keep-alive",
-            "X-Content-Type-Options": "nosniff",
-            "X-Accel-Buffering": "no",
-        },
-    )
+    return StreamingResponse(generator(), media_type="text/plain", headers=headers)
 
 
 @app.get("/web")
