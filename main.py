@@ -3,6 +3,7 @@ import json
 from fastapi import FastAPI
 from fastapi.responses import FileResponse, StreamingResponse
 from fastapi.middleware.cors import CORSMiddleware
+from sse_starlette import EventSourceResponse
 
 app = FastAPI()
 
@@ -40,6 +41,15 @@ def sse_generator():
         time.sleep(1)
 
 
+def event_generator():
+    i = 1
+    while i <= 10:
+        data = {"message": f"Session {i}"}
+        yield f"{json.dumps(data)}"
+        i += 1
+        time.sleep(1)
+
+
 @app.get("/")
 async def main():
     return "Welcome to SSE Test"
@@ -63,3 +73,13 @@ async def plain():
 @app.get("/web")
 async def read_index():
     return FileResponse("index.html")
+
+
+@app.get("/event")
+async def event():
+    return EventSourceResponse(event_generator())
+
+
+@app.get("/webevent")
+async def read_index():
+    return FileResponse("index1.html")
